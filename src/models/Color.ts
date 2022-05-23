@@ -1,7 +1,6 @@
-export default class Color {
-    private _hex: string;
-
-    constructor(hex: string) {
+export default class Color{
+    private _hex : string;
+    constructor(hex : string){
         this._hex = hex;
     }
 

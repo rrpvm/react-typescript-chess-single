@@ -1,13 +1,11 @@
-import Cell from "../Cell";
-import React from "react";
+import ICellProp from "../interfaces/ICellProp";
 
-interface ICellProp {
-    cell : Cell;
-}
-export const CellComponent: React.FC<ICellProp> = ({cell}) => {
+const CellComponent : React.FC<ICellProp> = ({cell}) => {
     return (
-        <div className="Cell" key={cell.xy} style={{background : cell.color.hex}}>
-            <img src={cell.figure.logo}></img>
+        <div className="Cell" style={{background : cell.color.hex }}>
+          <img src={cell.figure.get_logo_src()} alt=""></img>
+          {cell.avaliable && <div className="available"></div>}
         </div>
-    )
+    );
 }
+export default CellComponent;

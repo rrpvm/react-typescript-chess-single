@@ -1,40 +1,19 @@
-import React, {useEffect, useState} from 'react';
+import  {useEffect, useState} from 'react';
 import './App.css';
-import Board from "./Board";
-import {CellComponent} from "./components/CellComponent"
-
+import BoardComponent from './components/BoardComponent';
+import Board from './objects/Board';
 function App() {
-    const [gameBoard, setGameBoard] = useState<Board>(new Board());
-    const res = () => {
-        const gameBoard = new Board();
-        gameBoard.initBoard();
-        setGameBoard(gameBoard);
-    }
-    useEffect(() => {
-        res();
-    }, []);
-    useEffect(() => {
-        console.log("changed");
-    }, [gameBoard.cells])
+   const [board, setBoard] = useState<Board | undefined>();
+   const restart = () : void => {
+        const _board = new Board();
+        _board.initialize();
+        setBoard(_board);
+   }
+   useEffect(()=>{
+    restart();
+   }, []);
     return (
-        <div className="App">
-            <div className="Board">
-                {
-                    gameBoard.cells.map(
-                        (row, index) =>
-                            <React.Fragment key={index}>
-                                {
-                                    row.map((_cell) => {
-                                        return (
-                                            <CellComponent cell={_cell} key={_cell.xy}></CellComponent>
-                                        )
-                                    })
-                                }
-                            </React.Fragment>
-                    )
-                }
-            </div>
-        </div>
+      <BoardComponent board={board}/>
     );
 }
 
