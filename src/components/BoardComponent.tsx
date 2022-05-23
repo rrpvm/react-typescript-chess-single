@@ -12,10 +12,16 @@ import CellComponent from "./CellComponent";
 const BoardComponent: React.FC = () => {
     const [selectedFigureCell, setSelectedFigureCell] = useState<Cell | null>();//selectedFigure
     const [board, setBoard] = useState<Board>(new Board());
+    const [playerMoveIdx, setPlayerMoveIdx] = useState<number>(FigurePlayer.WHITE_PLAYER);
     const on_cell_click = (cell: Cell) => {
         if (cell.figure.player !== FigurePlayer.NONE) {
-            setSelectedFigureCell(cell);
-            calculate_avaliable_actions(cell);
+            if (cell.figure.player === playerMoveIdx) {
+                setSelectedFigureCell(cell);
+                calculate_avaliable_actions(cell);
+            }
+            else {
+                /*подсветка будущего выбора */
+            }
         }
         else {
             if (cell.avaliable && selectedFigureCell) {
@@ -23,24 +29,36 @@ const BoardComponent: React.FC = () => {
             }
         }
     }
-    const calculate_avaliable_actions = (player: Cell) => {
+    const calculate_avaliable_actions = (player: Cell | null) => {
         for (let i = 0; i < 8; i++)
             for (let j = 0; j < 8; j++) {
-                const target: Cell = board.mapCells[i][j];
-                target.avaliable = player.figure.canLocate(player, target);
+                if (player === null) {
+                    board.mapCells[i][j].avaliable = false;
+                }
+                else {
+                    if (player.figure.player === playerMoveIdx) {
+                        const target: Cell = board.mapCells[i][j];
+                        target.avaliable = player.figure.canLocate(player, target);
+                    }
+                    else board.mapCells[i][j].avaliable = false;
+                }
             }
     }
     const swap_cells_figures = (c1: Cell,/*src*/  c2: Cell/*target */) => { /*move cells */
         if (c1.figure instanceof Pawn) {
-            c1.figure.doFirstMove();
+            c1.figure.doFirstMove();//отключаем 2й ход
         }
         const b: Figure = FigureCopyFactory(c1.figure);
         c1.figure = c2.figure;
         c2.figure = b;
-        console.log(c2);
-        updateBoard();
-        setSelectedFigureCell(c2);
-        calculate_avaliable_actions(c2);
+        nextGameMoveTick();
+
+    }
+    const nextGameMoveTick = () => {
+        if (playerMoveIdx === FigurePlayer.WHITE_PLAYER) {
+            setPlayerMoveIdx(FigurePlayer.BLACK_PLAYER);
+        }
+        else setPlayerMoveIdx(FigurePlayer.WHITE_PLAYER);
     }
     const restart = (): void => {
         const _board = new Board();
@@ -53,6 +71,13 @@ const BoardComponent: React.FC = () => {
     useEffect(() => {
         restart();
     }, []);
+    useEffect(() => {
+        if (selectedFigureCell !== undefined) {
+            setSelectedFigureCell(null);
+            calculate_avaliable_actions(selectedFigureCell);
+            updateBoard();
+        }
+    }, [playerMoveIdx]);
     return (
         <div className="App">
             <div className="Board">
