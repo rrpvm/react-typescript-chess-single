@@ -1,7 +1,8 @@
 import Cell from "./Cell";
 import Figure from "./enums/Figure";
-import figures from "./figures";
 import Colors from "./enums/Colors"
+import { FiguresTypes } from "./enums/FiguresType";
+
 export default class Board {
     private _cells: Cell[][] = [];
 
@@ -21,22 +22,36 @@ export default class Board {
 
     addPawns() {
         for (let i = 0; i < 8; i++) {
-            this._cells[1][i].figure.color = "black";
-            this._cells[6][i].figure.logo = "white";
-            this._cells[1][i].figure.logo = figures.BLACK_PAWN.src;
-            this._cells[6][i].figure.logo = figures.WHITE_PAWN.src;
+            this.cells[1][i].figure.type = FiguresTypes.BLACK_PAWN;
+            this.cells[6][i].figure.type = FiguresTypes.WHITE_PAWN;
         }
     }
 
-    addKing() {
-        this._cells[0][5].figure.color = "black";
-        this._cells[7][5].figure.color = "white";
-        this._cells[0][4].figure.logo = figures.BLACK_KING.src;
-        this._cells[7][4].figure.logo = figures.WHITE_KING.src;
+    addKings() {
+        this.cells[0][4].figure.type = FiguresTypes.BLACK_KING;
+        this.cells[7][4].figure.type = FiguresTypes.WHITE_KING;
     }
 
+    addKnights() {
+        this.cells[0][1].figure.type = FiguresTypes.BLACK_KNIGHT;
+        this.cells[0][6].figure.type = FiguresTypes.BLACK_KNIGHT;
+        this.cells[7][1].figure.type = FiguresTypes.WHITE_KNIGHT;
+        this.cells[7][6].figure.type = FiguresTypes.WHITE_KNIGHT;
+    }
+
+    addRooks(){
+        this.cells[0][0].figure.type = FiguresTypes.BLACK_ROOK;
+        this.cells[0][7].figure.type = FiguresTypes.BLACK_ROOK;
+        this.cells[7][0].figure.type = FiguresTypes.WHITE_ROOK;
+        this.cells[7][7].figure.type = FiguresTypes.WHITE_ROOK;
+
+
+    }
     initBoard() {
         this.addPawns();
-        this.addKing();
+        this.addRooks();
+        this.addKnights();
+        this.addKings();
+
     }
 }

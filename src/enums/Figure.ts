@@ -1,30 +1,19 @@
+import Color from "../Color";
+import Colors from "./Colors";
+import {FiguresTypes, figures_logo} from "./FiguresType";
+
 export default class Figure {
-    private _logo: string = "";
-    private _type: string = "";
-    private _color:string = "";
+    private _type: FiguresTypes = FiguresTypes.NONE;
+    public logo: string = figures_logo[FiguresTypes.NONE];
+    public color: Color = Colors.NONE;
 
-    get color(): string {
-        return this._color;
-    }
-
-    set color(value: string) {
-        this._color = value;
-    }
-
-    get logo(): string {
-        return this._logo;
-    }
-
-    get type(): string {
-        return this._type;
-    }
-
-
-    set logo(value: string) {
-        this._logo = value;
-    }
-
-    set type(value: string) {
+    set type(value:FiguresTypes) {
         this._type = value;
+        this.initFigure();
+    }
+
+    initFigure() {
+        this.logo = figures_logo[this._type];
+        this.color = this._type > 0 && this._type <= FiguresTypes.WHITE_KING ? Colors.WHITE : Colors.BLACK;
     }
 }

@@ -13,23 +13,26 @@ function App() {
     useEffect(() => {
         res();
     }, []);
+    useEffect(() => {
+        console.log("changed");
+    }, [gameBoard.cells])
     return (
         <div className="App">
             <div className="Board">
-            {
-                gameBoard.cells.map(
-                    (row, index) =>
-                        <React.Fragment key={index}>
-                            {
-                                row.map((_cell) => {
-                                    return (
-                                       <CellComponent cell={_cell} key={_cell.xy}></CellComponent>
-                                    )
-                                })
-                            }
-                        </React.Fragment>
-                )
-            }
+                {
+                    gameBoard.cells.map(
+                        (row, index) =>
+                            <React.Fragment key={index}>
+                                {
+                                    row.map((_cell) => {
+                                        return (
+                                            <CellComponent cell={_cell} key={_cell.xy}></CellComponent>
+                                        )
+                                    })
+                                }
+                            </React.Fragment>
+                    )
+                }
             </div>
         </div>
     );
