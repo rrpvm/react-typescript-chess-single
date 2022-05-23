@@ -1,24 +1,33 @@
 import Color from "../models/Color";
 import Figure from "./Figure";
 
-export default class Cell{
-    private _xy;
+export default class Cell {
+    private _x;
+    private _y;
     private _avaliable;
     private _figure;
     private _color;
-    constructor(xy: number, avaliable: boolean, figure: Figure, color:Color) {
-        this._xy = xy;
+    constructor(x: number, y: number, avaliable: boolean, figure: Figure, color: Color) {
+        this._x = x;
+        this._y = y;
         this._avaliable = avaliable;
         this._figure = figure;
         this._color = color;
     }
 
-    get xy(): number {
-        return this._xy;
+    get x(): number {
+        return this._x;
     }
 
-    set xy(value: number) {
-        this._xy = value;
+    set x(value: number) {
+        this._x = value;
+    }
+    get y(): number {
+        return this._y;
+    }
+
+    set y(value: number) {
+        this._y = value;
     }
 
     get avaliable(): boolean {
@@ -37,10 +46,10 @@ export default class Cell{
         this._figure = value;
     }
 
-    get color():Color {
+    get color(): Color {
         return this._color;
     }
-    set color(value:Color) {
+    set color(value: Color) {
         this._color = value;
     }
 }

@@ -86,13 +86,13 @@ const BoardComponent: React.FC = () => {
                         return (
                             <React.Fragment key={index}>
                                 {
-                                    row.map((item: Cell) => {
+                                    row.map((item: Cell, y) => {
                                         return (
                                             <CellComponent
-                                                selected={selectedFigureCell?.xy === item.xy}
+                                                selected={selectedFigureCell === item}
                                                 on_click={on_cell_click}
                                                 cell={item}
-                                                key={item.xy}></CellComponent>
+                                                key={y}></CellComponent>
                                         )
                                     })
                                 }

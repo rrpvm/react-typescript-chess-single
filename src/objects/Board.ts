@@ -17,7 +17,7 @@ export default class Board {
         for (let i = 0; i < Board.map_size; i++) {
             let _row: Cell[] = [];
             for (let j = 0; j < Board.map_size; j++) {
-                _row.push(new Cell(i * 8 + j, false, new Figure(FigurePlayer.NONE), (i + j) % 2 === 0 ? Colors.WHITE : Colors.BLACK));
+                _row.push(new Cell(i,j, false, new Figure(FigurePlayer.NONE), (i + j) % 2 === 0 ? Colors.WHITE : Colors.BLACK));
             }
             this._mapCells.push(_row);
         }
