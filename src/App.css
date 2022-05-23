@@ -26,6 +26,7 @@
     max-height: 64px;
 }
 .available{
+    position: absolute;
     width: 10px;
     min-height: 10px;
     border-radius: 50%;
