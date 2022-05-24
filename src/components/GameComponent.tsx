@@ -1,8 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import Colors from "../enums/Colors";
-import Pair from "../models/structure/Pair";
 import BoardCell from "../objects/BoardCell";
 import EmptyFigure from "../objects/figures/impl/EmptyFigure";
 import GameBoard from "../objects/GameBoard";
@@ -33,13 +31,8 @@ const GameComponent: React.FC = () => {
                 boardState.updateMoveHints(cell);
             }
             else {
-                if (cell.figure instanceof EmptyFigure) {//если выбрали движение
-                    boardState.moveFigure(lastClickedCell, cell);
-                    setLastClickedCell(null);
-                }
-                else {//выбрали съесть вражескую клетку
-                    
-                }
+                boardState.moveFigure(lastClickedCell, cell);
+                setLastClickedCell(null);
             }
 
         }
