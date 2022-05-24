@@ -32,3 +32,10 @@
     border-radius: 50%;
     background: #ff0000;
 }
+.debug{
+    position: absolute;
+    width: 20px;
+    min-height: 20px;
+    border-radius: 50%;
+    background: #00ff6a;
+}

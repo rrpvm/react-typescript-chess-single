@@ -1,7 +1,7 @@
-import Cell from "../objects/Cell";
+import BoardCell from "../objects/BoardCell";
 
 export default interface ICellProp {
-    cell: Cell;
-    selected: boolean;
-    on_click: (cell: Cell) => void;
+    cell: BoardCell;
+    is_active: boolean;
+    on_click: (cell: BoardCell) => void;
 }

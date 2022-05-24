@@ -1,11 +1,11 @@
 
 import './App.css';
-import BoardComponent from './components/BoardComponent';
+import GameComponent from './components/GameComponent';
+
 function App() {
-  // const [board, setBoard] = useState<Board | undefined>();
-    return (
-      <BoardComponent/>
-    );
+  return (
+    <GameComponent></GameComponent>
+  );
 }
 
 export default App;
