@@ -13,8 +13,8 @@ export default class Rook extends FigureDirectMovable {
             for (let j = 0; j < 8; j++) {
                 const target = this._get_cell_function(i, j);
                 if (target === src) continue;
-                if (this.isDirectMove(src, target)) {
-                    if (!this.NonEmptyCollision(src, target)) result.push(new Pair(i, j));
+                if (this.isSuitableMove(src, target)) {
+                    if (!this.isCollisionDetected(src, target)) result.push(new Pair(i, j));
                 }
             }
         }

@@ -13,8 +13,8 @@ export default class Bishop extends FigureDiagonalMovable {
             for (let j = 0; j < 8; j++) {
                 const target = this._get_cell_function(i, j);
                 if (target === src) continue;
-                if (!this.isDiagonalMove(src, target))continue; 
-                    if (!this.NonEmptyDiagonalCollision(src, target)) result.push(new Pair(i, j));
+                if (!this.isSuitableMove(src, target))continue; 
+                    if (!this.isCollisionDetected(src, target)) result.push(new Pair(i, j));
                 
             }
         }
