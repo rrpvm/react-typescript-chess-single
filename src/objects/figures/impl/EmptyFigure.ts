@@ -7,10 +7,10 @@ export default class EmptyFigure extends Figure {
     public override  get_logo_src(): string {
         return "";
     }
-    public override  canRelocate(src: BoardCell, get_cell_function: (pair: Pair<number, number>) => BoardCell): Pair<number, number>[] {
+    public override  canRelocate(src: BoardCell): Pair<number, number>[] {
         return [];
     }
-    constructor() {
-        super(Players.PLAYER_NONE);
+    constructor(get_cell_function: (x: number, y: number) => BoardCell) {
+        super(Players.PLAYER_NONE, get_cell_function);
     }
 }

@@ -7,8 +7,8 @@ export default class King extends Figure {
     public override  get_logo_src(): string {
         return this._player === Players.PLAYER_BLACK ? 'https://www.symbols.com/images/symbol/1/3398_black-king.png' : 'https://www.symbols.com/images/symbol/1/3404_white-king.png';
     }
-    public override  canRelocate(src: BoardCell, get_cell_function: (pair: Pair<number, number>) => BoardCell):  Pair<number,number>[] {
+    public override  canRelocate(src: BoardCell): Pair<number, number>[] {
         return [];
     }
-    
+
 }
