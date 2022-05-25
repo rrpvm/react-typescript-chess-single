@@ -7,6 +7,7 @@ export default abstract class Figure {
     protected _get_cell_function: (x: number, y: number) => BoardCell;
     public abstract get_logo_src(): string;
     public abstract canRelocate(src: BoardCell): Pair<number, number>[];
+    public abstract simulate(src: BoardCell): Pair<number, number>[];
     constructor(vPlayer: Players, get_cell_function: (x: number, y: number) => BoardCell) {
         this._player = vPlayer;
         this._get_cell_function = get_cell_function;;

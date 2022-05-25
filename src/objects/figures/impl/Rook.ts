@@ -4,6 +4,10 @@ import BoardCell from "../../BoardCell";
 import FigureDirectMovable from "../FigureDirectMovable";
 
 export default class Rook extends FigureDirectMovable {
+    public override simulate(src: BoardCell): Pair<number, number>[] {
+        const simulation: Rook = new Rook(src.figure.player, this._get_cell_function);
+        return simulation.canRelocate(src);
+    }
     public override get_logo_src(): string {
         return this._player === Players.PLAYER_BLACK ? 'https://www.symbols.com/images/symbol/1/3400_black-rook.png' : 'https://www.symbols.com/images/symbol/1/3406_white-rook.png';
     }
