@@ -1,17 +1,15 @@
 import { Players } from "../../enums/Players";
-import { IFigureDirectable } from "../../interfaces/IFigureDirectable";
 import BoardCell from "../BoardCell";
 import Figure from "./Figure";
 
-export default abstract class FigureDirectMovable extends Figure implements IFigureDirectable { //имплементация по прямой(вертикаль/горизонталь)
-    protected isDirectMove(src: BoardCell, target: BoardCell): boolean {
-        if (src.xy.left === target.xy.left || src.xy.right === target.xy.right) return true;
-        return false;
+export default abstract class FigureDiagonalMovable extends Figure {
+    protected isDiagonalMove(src: BoardCell, target: BoardCell): boolean {
+        return Math.abs(src.xy.left - target.xy.left)===Math.abs(src.xy.right-target.xy.right);
     }
     protected isFriendly(src: BoardCell, target: BoardCell): boolean {
         return target.figure.player === src.figure.player;
     }
-    NonEmptyCollision(src: BoardCell, target: BoardCell): boolean {
+    NonEmptyDiagonalCollision(src: BoardCell, target: BoardCell): boolean {
         const figure_validation = (cell: BoardCell): boolean => {
             if (cell.figure.player !== Players.PLAYER_NONE) {
                 if (cell.figure.player === src.figure.player) {
@@ -31,6 +29,7 @@ export default abstract class FigureDirectMovable extends Figure implements IFig
         for (let x = minX; x <= maxX; x++) {//вертикаль
             for (let y = minY; y <= maxY; y++) {
                 const cell = this._get_cell_function(x, y);
+                if(!this.isDiagonalMove(src,cell))continue;
                 if (cell === src) continue;
                 if (figure_validation(cell)) {
                     result = true;
