@@ -1,41 +1,42 @@
 .App {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
 }
-.Board{
-    width: calc(80*8px);
-    height: calc(80*8px);
-    display: flex;
-    flex-wrap: wrap;
-    border: 5px solid black;
+.Board {
+  width: calc(80 * 8px);
+  height: calc(80 * 8px);
+  display: flex;
+  flex-wrap: wrap;
+  border: 5px solid black;
 }
 .Cell {
-    display: flex;
-    width: 80px;
-    height: 80px;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    position: relative;
+  display: flex;
+  width: 80px;
+  height: 80px;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
 }
-.Cell img{
-    max-height: 64px;
+.Cell img {
+  max-height: 64px;
+  z-index: 2;
 }
-.available{
-    position: absolute;
-    width: 10px;
-    min-height: 10px;
-    border-radius: 50%;
-    background: #ff0000;
+.available {
+  position: absolute;
+  width: 25%;
+  min-height: 25%;
+  border-radius: 50%;
+  background: #0ee65d;
 }
-.debug{
-    position: absolute;
-    width: 20px;
-    min-height: 20px;
-    border-radius: 50%;
-    background: #00ff6a;
+.avaliable-figure {
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+  background: #f41717;
 }

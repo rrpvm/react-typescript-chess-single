@@ -81,7 +81,6 @@ export default class GameBoard {
         for (let i = 0; i < GameBoard.DEFAULT_CHESS_SIZE; ++i)
             for (let j = 0; j < GameBoard.DEFAULT_CHESS_SIZE; ++j) {
                 this._game_map[i][j].available = false;
-                this._game_map[i][j]._bDebug = false;
             }
         if (player === null) return;
         let all_possible_moves: Pair<number, number>[] = player.figure.canRelocate(player);
@@ -89,11 +88,12 @@ export default class GameBoard {
             this._game_map[item.left][item.right].available = true;
         });
     }
-    public moveFigure(from: BoardCell, to: BoardCell): void {
-        if (!to.available) return;
+    public moveFigure(from: BoardCell, to: BoardCell): boolean {
+        if (!to.available) return false;
         to.figure = from.figure;
         from.figure = new EmptyFigure((x: number, y: number) => { return this.get_cell_function(x, y) });
         this.updateMoveHints(null);//очищаем подсказки
+        return true;
     }
     public eatFigure() {
 

@@ -8,8 +8,6 @@ export default class BoardCell {
     private _available: boolean;
 
 
-    public _bDebug: boolean = false;
-
     constructor(color: Color, figure: Figure, xy: Pair<number, number>, available: boolean) {
         this._color = color;
         this._figure = figure;
