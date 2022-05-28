@@ -13,9 +13,11 @@ import Rook from "./figures/impl/Rook";
 export default class GameBoard {
     private _game_map: BoardCell[][];
     private static readonly DEFAULT_CHESS_SIZE: number = 8;
-    constructor() {
+    private reverseBoard: boolean;
+    constructor(bReverse: boolean) {
         this._game_map = [];
         this.initialize();
+        this.reverseBoard = bReverse;
     }
     private get_cell_function(x: number, y: number): BoardCell {
         return this._game_map[x][y];
@@ -25,7 +27,7 @@ export default class GameBoard {
         for (let col: number = 0; col < GameBoard.DEFAULT_CHESS_SIZE; ++col) {
             let row_array: BoardCell[] = [];
             for (let row: number = 0; row < GameBoard.DEFAULT_CHESS_SIZE; ++row) {
-                row_array.push(new BoardCell((col + row) % 2 !== 0 ? Colors.BLACK : Colors.WHITE, new EmptyFigure((x: number, y: number) => { return this.get_cell_function(x, y) }), new Pair(col, row), false));
+                row_array.push(new BoardCell((col + row) % 2 !== 0 ? Colors.BLACK : Colors.WHITE, new EmptyFigure((x: number, y: number) => { return this.get_cell_function(x, y) }), new Pair(col, row), false,this.reverseBoard));
             }
             this._game_map.push(row_array);
         }
@@ -38,6 +40,9 @@ export default class GameBoard {
     }
     public get game_map(): BoardCell[][] {
         return this._game_map;
+    }
+    get isReversed(): boolean {
+        return this.reverseBoard;
     }
     private addPawns(): void {
         for (let i = 0; i < GameBoard.DEFAULT_CHESS_SIZE; i++) {
@@ -72,7 +77,7 @@ export default class GameBoard {
         this._game_map[7][4].figure = new King(Players.PLAYER_WHITE, (x: number, y: number) => { return this.get_cell_function(x, y) });
     }
     public clone(): GameBoard {
-        let clone: GameBoard = new GameBoard();
+        let clone: GameBoard = new GameBoard(this.reverseBoard);
         clone._game_map = this._game_map;
         this._game_map = [];//test, can broke app(if ref)
         return clone;
@@ -90,12 +95,12 @@ export default class GameBoard {
     }
     public moveFigure(from: BoardCell, to: BoardCell): boolean {
         if (!to.available) return false;
+        if (from.figure instanceof Pawn) {
+            from.figure.doFirstMove();
+        }
         to.figure = from.figure;
         from.figure = new EmptyFigure((x: number, y: number) => { return this.get_cell_function(x, y) });
         this.updateMoveHints(null);//очищаем подсказки
         return true;
-    }
-    public eatFigure() {
-
     }
 }

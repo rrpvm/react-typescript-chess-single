@@ -12,7 +12,7 @@ export default class Colors{
         return lazyColor[0];
     }
     public static readonly NONE : Color = new Color("#00000000");
-    public static readonly BLACK : Color = new Color("#575757");
+    public static readonly BLACK : Color = new Color("#b3b38b");
     public static readonly WHITE : Color = new Color("#ffffff");
-    public static readonly SELECTED : Color = new Color("#0ee65d");
+    public static readonly SELECTED : Color = new Color("#616144");
 }

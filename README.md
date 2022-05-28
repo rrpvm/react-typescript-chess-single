@@ -1,7 +1,8 @@
 # Simple Chess Application Based on TypeScript + React + OOP
 
 ## Preview
-!['screen'](git_images/knight_example.png)
+!['screen'](git_images/example_1.png)
+!['screen'](git_images/example_2.png)
 ### Scripts
 To run application:
 ### `npm install`

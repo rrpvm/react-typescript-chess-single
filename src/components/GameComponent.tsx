@@ -2,17 +2,17 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Players } from "../enums/Players";
+import { CellComponent } from "./CellComponent";
 import BoardCell from "../objects/BoardCell";
 import EmptyFigure from "../objects/figures/impl/EmptyFigure";
 import GameBoard from "../objects/GameBoard";
-import { CellComponent } from "./CellComponent";
 
 const GameComponent: React.FC = () => {
-    const [boardState, setBoard] = useState<GameBoard>(new GameBoard());
+    const [boardState, setBoard] = useState<GameBoard>(new GameBoard(false));
     const [lastClickedCell, setLastClickedCell] = useState<BoardCell | null>(null);
     const [playerQueue, setPlayerQueue] = useState<number>(Players.PLAYER_WHITE);
     const initGameBoard = (): void => {
-        const gameBoard: GameBoard = new GameBoard();
+        const gameBoard: GameBoard = new GameBoard(false);
         gameBoard.initialize();
         setBoard(gameBoard);
     }
@@ -36,9 +36,10 @@ const GameComponent: React.FC = () => {
                 const moved: boolean = boardState.moveFigure(lastClickedCell, cell);
                 if (moved) {
                     setPlayerQueue(playerQueue === Players.PLAYER_WHITE ? Players.PLAYER_BLACK : Players.PLAYER_WHITE);
+
                 }
-                setLastClickedCell(null);
-                boardState.updateMoveHints(null);
+                setLastClickedCell(null);//can be in if(moved)
+                boardState.updateMoveHints(null);//can be in if(moved)
             }
 
         }
@@ -54,7 +55,7 @@ const GameComponent: React.FC = () => {
 
     return (
         <div className="App">
-            <div className="Board">
+            <div className={"Board" + (boardState.isReversed ? " reversed" : " ")}>
                 {
                     boardState.game_map.map((cellCol: BoardCell[], index) => {
                         return <React.Fragment key={index}>
