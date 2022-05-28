@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+import { Players } from "../enums/Players";
 import BoardCell from "../objects/BoardCell";
 import EmptyFigure from "../objects/figures/impl/EmptyFigure";
 import GameBoard from "../objects/GameBoard";
@@ -9,6 +10,7 @@ import { CellComponent } from "./CellComponent";
 const GameComponent: React.FC = () => {
     const [boardState, setBoard] = useState<GameBoard>(new GameBoard());
     const [lastClickedCell, setLastClickedCell] = useState<BoardCell | null>(null);
+    const [playerQueue, setPlayerQueue] = useState<number>(Players.PLAYER_WHITE);
     const initGameBoard = (): void => {
         const gameBoard: GameBoard = new GameBoard();
         gameBoard.initialize();
@@ -16,7 +18,7 @@ const GameComponent: React.FC = () => {
     }
     const handle_cell_click = (cell: BoardCell): void => {
         if (lastClickedCell === null) {//выбираем любую фигуру
-            if (!(cell.figure instanceof EmptyFigure)) {
+            if (!(cell.figure instanceof EmptyFigure) && cell.figure.player === playerQueue) {
                 setLastClickedCell(cell);
                 boardState.updateMoveHints(cell);
             }
@@ -31,8 +33,12 @@ const GameComponent: React.FC = () => {
                 boardState.updateMoveHints(cell);
             }
             else {
-                boardState.moveFigure(lastClickedCell, cell);
+                const moved: boolean = boardState.moveFigure(lastClickedCell, cell);
+                if (moved) {
+                    setPlayerQueue(playerQueue === Players.PLAYER_WHITE ? Players.PLAYER_BLACK : Players.PLAYER_WHITE);
+                }
                 setLastClickedCell(null);
+                boardState.updateMoveHints(null);
             }
 
         }
