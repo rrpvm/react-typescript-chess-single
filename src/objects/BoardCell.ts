@@ -6,13 +6,14 @@ export default class BoardCell {
     private _figure: Figure;
     private _xy: Pair<number, number>;
     private _available: boolean;
+    private _reversed: boolean;
 
-
-    constructor(color: Color, figure: Figure, xy: Pair<number, number>, available: boolean) {
+    constructor(color: Color, figure: Figure, xy: Pair<number, number>, available: boolean,reversed : boolean) {
         this._color = color;
         this._figure = figure;
         this._xy = xy;
         this._available = available;
+        this._reversed = reversed;
     }
     get color(): Color {
         return this._color;
@@ -31,5 +32,11 @@ export default class BoardCell {
     }
     set available(value: boolean) {
         this._available = value;
+    }
+    get reversed(): boolean {
+        return this._reversed;
+    }
+    set reversed(value: boolean) {
+        this._reversed = value;
     }
 }

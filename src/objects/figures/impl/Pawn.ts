@@ -4,7 +4,7 @@ import BoardCell from "../../BoardCell";
 import Figure from "../Figure";
 
 export default class Pawn extends Figure {
-    private first_move = true;
+    private _first_move = true;
     public override simulate(src: BoardCell): Pair<number, number>[] {
         const simulation: Pawn = new Pawn(src.figure.player, this._get_cell_function);
         return simulation.canRelocate(src);
@@ -16,7 +16,7 @@ export default class Pawn extends Figure {
         let result: Pair<number, number>[] = [];
         const direction = this.player === Players.PLAYER_BLACK ? 1 : -1;
         for (let i = 1; i <= 2; i++) {
-            if (i === 2 && !this.first_move) continue;
+            if (i === 2 && !this._first_move) continue;
             const vertical = src.xy.left + i * direction;
             if (i === 1) {
                 const quickAdd = (sideEnemy: BoardCell) => {
@@ -35,5 +35,7 @@ export default class Pawn extends Figure {
         }
         return result;
     }
-
+    doFirstMove() {
+        this._first_move = false;
+    }
 }
