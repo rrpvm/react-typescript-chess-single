@@ -18,7 +18,7 @@ export default class Pawn extends Figure {
         for (let i = 1; i <= 2; i++) {
             if (i === 2 && !this._first_move) continue;
             const vertical = src.xy.left + i * direction;
-            if (i === 1) {
+            if (i === 1) {//sides
                 const quickAdd = (sideEnemy: BoardCell) => {
                     if (sideEnemy.figure.player !== src.figure.player && sideEnemy.figure.player !== Players.PLAYER_NONE) {
                         result.push(sideEnemy.xy);
@@ -30,7 +30,7 @@ export default class Pawn extends Figure {
                 quickAdd(sideEnemyRight);
             }
             const cell: BoardCell = this.proxy.get_cell_function(vertical, src.xy.right);
-            if (cell.figure.player !== Players.PLAYER_NONE) continue;
+            if (cell.figure.player !== Players.PLAYER_NONE) break;
             else result.push(cell.xy);
         }
         return result;
