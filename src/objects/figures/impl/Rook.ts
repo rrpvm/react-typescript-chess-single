@@ -4,8 +4,8 @@ import BoardCell from "../../BoardCell";
 import FigureDirectMovable from "../FigureDirectMovable";
 
 export default class Rook extends FigureDirectMovable {
-    public override simulate(src: BoardCell): Pair<number, number>[] {
-        const simulation: Rook = new Rook(src.figure.player, this._get_cell_function);
+    public static simulate(src: BoardCell): Pair<number, number>[] {
+        const simulation: Rook = new Rook(src.figure.player, src.figure.proxy);
         return simulation.canRelocate(src);
     }
     public override get_logo_src(): string {
@@ -15,7 +15,7 @@ export default class Rook extends FigureDirectMovable {
         let result: Pair<number, number>[] = [];
         for (let i = 0; i < 8; i++) {
             for (let j = 0; j < 8; j++) {
-                const target = this._get_cell_function(i, j);
+                const target = this.proxy.get_cell_function(i, j);
                 if (target === src) continue;
                 if (this.isSuitableMove(src, target)) {
                     if (!this.isCollisionDetected(src, target)) result.push(new Pair(i, j));

@@ -5,8 +5,8 @@ import Figure from "../Figure";
 
 export default class Pawn extends Figure {
     private _first_move = true;
-    public override simulate(src: BoardCell): Pair<number, number>[] {
-        const simulation: Pawn = new Pawn(src.figure.player, this._get_cell_function);
+    public static simulate(src: BoardCell): Pair<number, number>[] {
+        const simulation: Pawn = new Pawn(src.figure.player, src.figure.proxy);
         return simulation.canRelocate(src);
     }
     public override get_logo_src(): string {
@@ -24,12 +24,12 @@ export default class Pawn extends Figure {
                         result.push(sideEnemy.xy);
                     }
                 }
-                const sideEnemyLeft: BoardCell = this._get_cell_function(vertical, Math.min(src.xy.right + 1, 7));
-                const sideEnemyRight: BoardCell = this._get_cell_function(vertical, Math.max(src.xy.right - 1, 0));
+                const sideEnemyLeft: BoardCell = this.proxy.get_cell_function(vertical, Math.min(src.xy.right + 1, 7));
+                const sideEnemyRight: BoardCell = this.proxy.get_cell_function(vertical, Math.max(src.xy.right - 1, 0));
                 quickAdd(sideEnemyLeft);
                 quickAdd(sideEnemyRight);
             }
-            const cell: BoardCell = this._get_cell_function(vertical, src.xy.right);
+            const cell: BoardCell = this.proxy.get_cell_function(vertical, src.xy.right);
             if (cell.figure.player !== Players.PLAYER_NONE) continue;
             else result.push(cell.xy);
         }

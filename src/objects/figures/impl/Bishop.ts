@@ -4,8 +4,8 @@ import BoardCell from "../../BoardCell";
 import FigureDiagonalMovable from "../FigureDiagonalMovable";
 
 export default class Bishop extends FigureDiagonalMovable {
-    public override simulate(src: BoardCell): Pair<number, number>[] {
-        const simulation: Bishop = new Bishop(src.figure.player, this._get_cell_function);
+    public static simulate(src: BoardCell): Pair<number, number>[] {
+        const simulation: Bishop = new Bishop(src.figure.player, src.figure.proxy);
         return simulation.canRelocate(src);
     }
     public override  get_logo_src(): string {

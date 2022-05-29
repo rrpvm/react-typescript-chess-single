@@ -12,7 +12,7 @@ export default abstract class FigureLinearDirection extends Figure {
         let isCollsion = false;
         for (let x = minX; x <= maxX; x++) {//вертикаль
             for (let y = minY; y <= maxY; y++) {
-                const cell = this._get_cell_function(x, y);
+                const cell = this.proxy.get_cell_function(x, y);
                 if (cell === src) continue;
                 if (!this.isSuitableMove(src, cell)) continue;
                 if (this.isNotAffordableFigure(src, target, cell)) {
@@ -27,7 +27,7 @@ export default abstract class FigureLinearDirection extends Figure {
         let result: Pair<number, number>[] = [];
         for (let i = 0; i < 8; i++) {
             for (let j = 0; j < 8; j++) {
-                const target = this._get_cell_function(i, j);
+                const target = this.proxy.get_cell_function(i, j);
                 if (target === src) continue;
                 if (!this.isSuitableMove(src, target)) continue;
                 if (!this.isCollisionDetected(src, target)) result.push(new Pair(i, j));
